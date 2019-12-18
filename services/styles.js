@@ -43,7 +43,7 @@ Styles.getStyle = function(config) {
   return this.client.createRequest({
     method: 'GET',
     path: '/styles/v1/:ownerId/:styleId' + (config.draft ? '/draft' : ''),
-    params: config
+    params: pick(config, ['ownerId', 'styleId'])
   });
 };
 
@@ -277,7 +277,7 @@ Styles.deleteStyleIcon = function(config) {
       '/styles/v1/:ownerId/:styleId' +
       (config.draft ? '/draft' : '') +
       '/sprite/:iconId',
-    params: config
+    params: pick(config, ['ownerId', 'styleId', 'iconId'])
   });
 };
 
