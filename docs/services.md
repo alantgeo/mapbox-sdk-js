@@ -89,6 +89,7 @@ See the [corresponding HTTP service documentation][152].
 - `config` **[Object][153]** 
   - `config.styleId` **[string][154]** 
   - `config.ownerId` **[string][154]?** 
+  - `config.draft` **[boolean][155]** If `true` will retrieve the draft style, otherwise will retrieve the published style. (optional, default `false`)
 
 #### Examples
 
@@ -108,7 +109,7 @@ Returns **MapiRequest**
 
 Create a style.
 
-See the [corresponding HTTP service documentation][155].
+See the [corresponding HTTP service documentation][156].
 
 #### Parameters
 
@@ -141,14 +142,14 @@ Returns **MapiRequest**
 
 Update a style.
 
-See the [corresponding HTTP service documentation][156].
+See the [corresponding HTTP service documentation][157].
 
 #### Parameters
 
 - `config` **[Object][153]** 
   - `config.styleId` **[string][154]** 
   - `config.style` **[Object][153]** Stylesheet JSON object.
-  - `config.lastKnownModification` **([string][154] \| [number][157] \| [Date][158])?** Datetime of last
+  - `config.lastKnownModification` **([string][154] \| [number][158] \| [Date][159])?** Datetime of last
       known update. Passed as 'If-Unmodified-Since' HTTP header.
   - `config.ownerId` **[string][154]?** 
 
@@ -229,7 +230,7 @@ Add an icon to a style, or update an existing one.
 - `config` **[Object][153]** 
   - `config.styleId` **[string][154]** 
   - `config.iconId` **[string][154]** 
-  - `config.file` **[UploadableFile][159]** An SVG file.
+  - `config.file` **[UploadableFile][160]** An SVG file.
   - `config.ownerId` **[string][154]?** 
 
 #### Examples
@@ -260,6 +261,7 @@ Remove an icon from a style.
   - `config.styleId` **[string][154]** 
   - `config.iconId` **[string][154]** 
   - `config.ownerId` **[string][154]?** 
+  - `config.draft` **[boolean][155]** If `true` will remove the icon from the draft style, otherwise will remove the icon from the published style. (optional, default `false`)
 
 #### Examples
 
@@ -280,16 +282,17 @@ Returns **MapiRequest**
 
 Get a style sprite's image or JSON document.
 
-See [the corresponding HTTP service documentation][160].
+See [the corresponding HTTP service documentation][161].
 
 #### Parameters
 
 - `config` **[Object][153]** 
   - `config.styleId` **[string][154]** 
   - `config.format` **(`"json"` \| `"png"`)**  (optional, default `"json"`)
-  - `config.highRes` **[boolean][161]?** If true, returns spritesheet with 2x
+  - `config.highRes` **[boolean][155]?** If true, returns spritesheet with 2x
       resolution.
   - `config.ownerId` **[string][154]?** 
+  - `config.draft` **[boolean][155]** If `true` will retrieve the draft style sprite, otherwise will retrieve the published style sprite. (optional, default `false`)
 
 #### Examples
 
@@ -328,8 +331,8 @@ See [the corresponding HTTP service documentation][162].
 
 - `config` **[Object][153]** 
   - `config.fonts` **([string][154] \| [Array][163]&lt;[string][154]>)** An array of font names.
-  - `config.start` **[number][157]** Character code of the starting glyph.
-  - `config.end` **[number][157]** Character code of the last glyph,
+  - `config.start` **[number][158]** Character code of the starting glyph.
+  - `config.end` **[number][158]** Character code of the last glyph,
       typically equivalent to`config.start + 255`.
   - `config.ownerId` **[string][154]?** 
 
@@ -358,12 +361,13 @@ See [the corresponding HTTP service documentation][164].
 #### Parameters
 
 - `config` **[Object][153]** 
-- `styleId` **[string][154]** 
-- `scrollZoom` **[boolean][161]** If `false`, zooming the map by scrolling will
-    be disabled. (optional, default `true`)
-- `title` **[boolean][161]** If `true`, the map's title and owner is displayed
-    in the upper right corner of the map. (optional, default `false`)
-- `ownerId` **ownerId?** 
+  - `config.styleId` **[string][154]** 
+  - `config.scrollZoom` **[boolean][155]** If `false`, zooming the map by scrolling will
+      be disabled. (optional, default `true`)
+  - `config.title` **[boolean][155]** If `true`, the map's title and owner is displayed
+      in the upper right corner of the map. (optional, default `false`)
+  - `config.ownerId` **[string][154]?** 
+  - `config.draft` **[boolean][155]** If `true` will retrieve the draft style, otherwise will retrieve the published style. (optional, default `false`)
 
 ## Static
 
@@ -385,8 +389,8 @@ SDK returned.
 - `config` **[Object][153]** 
   - `config.ownerId` **[string][154]** The owner of the map style.
   - `config.styleId` **[string][154]** The map's style ID.
-  - `config.width` **[number][157]** Width of the image in pixels, between 1 and 1280.
-  - `config.height` **[number][157]** Height of the image in pixels, between 1 and 1280.
+  - `config.width` **[number][158]** Width of the image in pixels, between 1 and 1280.
+  - `config.height` **[number][158]** Height of the image in pixels, between 1 and 1280.
   - `config.position` **(`"auto"` \| [Object][153])** If `"auto"`, the viewport will fit the
       bounds of the overlay(s). Otherwise, the maps' position is described by an object
       with the following properties:
@@ -401,15 +405,15 @@ SDK returned.
       [`CustomMarkerOverlay`][137],
       [`PathOverlay`][139],
       [`GeoJsonOverlay`][141]
-  - `config.highRes` **[boolean][161]**  (optional, default `false`)
+  - `config.highRes` **[boolean][155]**  (optional, default `false`)
   - `config.before_layer` **[string][154]?** The ID of the style layer
       that overlays should be inserted *before*.
   - `config.addlayer` **[Object][153]?** Adds a Mapbox style layer to the map's style at render time. Can be combined with before_layer.
   - `config.setfilter` **[Array][163]?** Applies a filter to an existing layer in a style using Mapbox's expression syntax. Must be used with layer_id.
   - `config.layer_id` **[string][154]?** Denotes the layer in the style that the filter specified in setfilter is applied to.
-  - `config.attribution` **[boolean][161]** Whether there is attribution
+  - `config.attribution` **[boolean][155]** Whether there is attribution
       on the map image. (optional, default `true`)
-  - `config.logo` **[boolean][161]** Whether there is a Mapbox logo
+  - `config.logo` **[boolean][155]** Whether there is a Mapbox logo
       on the map image. (optional, default `true`)
 
 #### Examples
@@ -552,7 +556,7 @@ See the [corresponding HTTP service documentation][167].
 #### Parameters
 
 - `config` **[Object][153]?** 
-  - `config.reverse` **[boolean][161]?** List uploads in chronological order, rather than reverse chronological order.
+  - `config.reverse` **[boolean][155]?** List uploads in chronological order, rather than reverse chronological order.
 
 #### Examples
 
@@ -841,7 +845,7 @@ See the [corresponding HTTP service documentation][178].
 
 - `config` **[Object][153]** 
   - `config.datasetId` **[string][154]** 
-  - `config.limit` **[number][157]?** Only list this number of features.
+  - `config.limit` **[number][158]?** Only list this number of features.
   - `config.start` **[string][154]?** The ID of the feature from which the listing should
       start.
 
@@ -967,9 +971,9 @@ List features within a radius of a point on a map (or several maps).
   - `config.mapIds` **[Array][163]&lt;[string][154]>** The maps being queried.
       If you need to composite multiple layers, provide multiple map IDs.
   - `config.coordinates` **[Coordinates][183]** The longitude and latitude to be queried.
-  - `config.radius` **[number][157]** The approximate distance in meters to query for features. (optional, default `0`)
-  - `config.limit` **[number][157]** The number of features to return, between 1 and 50. (optional, default `5`)
-  - `config.dedupe` **[boolean][161]** Whether or not to deduplicate results. (optional, default `true`)
+  - `config.radius` **[number][158]** The approximate distance in meters to query for features. (optional, default `0`)
+  - `config.limit` **[number][158]** The number of features to return, between 1 and 50. (optional, default `5`)
+  - `config.dedupe` **[boolean][155]** Whether or not to deduplicate results. (optional, default `true`)
   - `config.geometry` **(`"polygon"` \| `"linestring"` \| `"point"`)?** Queries for a specific geometry type.
   - `config.layers` **[Array][163]&lt;[string][154]>?** IDs of vector layers to query.
 
@@ -1046,9 +1050,9 @@ See the [public documentation][186].
       Each item in the array should be an [ISO 3166 alpha 2 country code][187].
   - `config.proximity` **[Coordinates][183]?** Bias local results based on a provided location.
   - `config.types` **[Array][163]&lt;(`"country"` \| `"region"` \| `"postcode"` \| `"district"` \| `"place"` \| `"locality"` \| `"neighborhood"` \| `"address"` \| `"poi"` \| `"poi.landmark"`)>?** Filter results by feature types.
-  - `config.autocomplete` **[boolean][161]** Return autocomplete results or not. (optional, default `true`)
+  - `config.autocomplete` **[boolean][155]** Return autocomplete results or not. (optional, default `true`)
   - `config.bbox` **[BoundingBox][188]?** Limit results to a bounding box.
-  - `config.limit` **[number][157]** Limit the number of results returned. (optional, default `5`)
+  - `config.limit` **[number][158]** Limit the number of results returned. (optional, default `5`)
   - `config.language` **[Array][163]&lt;[string][154]>?** Specify the language to use for response text and, for forward geocoding, query result weighting.
      Options are [IETF language tags][189] comprised of a mandatory
      [ISO 639-1 language code][190] and optionally one or more IETF subtags for country or script.
@@ -1115,7 +1119,7 @@ See the [public documentation][191].
       Each item in the array should be an [ISO 3166 alpha 2 country code][187].
   - `config.types` **[Array][163]&lt;(`"country"` \| `"region"` \| `"postcode"` \| `"district"` \| `"place"` \| `"locality"` \| `"neighborhood"` \| `"address"` \| `"poi"` \| `"poi.landmark"`)>?** Filter results by feature types.
   - `config.bbox` **[BoundingBox][188]?** Limit results to a bounding box.
-  - `config.limit` **[number][157]** Limit the number of results returned. If using this option, you must provide a single item for `types`. (optional, default `1`)
+  - `config.limit` **[number][158]** Limit the number of results returned. If using this option, you must provide a single item for `types`. (optional, default `1`)
   - `config.language` **[Array][163]&lt;[string][154]>?** Specify the language to use for response text and, for forward geocoding, query result weighting.
      Options are [IETF language tags][189] comprised of a mandatory
      [ISO 639-1 language code][190] and optionally one or more IETF subtags for country or script.
@@ -1156,18 +1160,18 @@ to understand all of the available options.
 - `config` **[Object][153]** 
   - `config.profile` **(`"driving-traffic"` \| `"driving"` \| `"walking"` \| `"cycling"`)**  (optional, default `"driving"`)
   - `config.waypoints` **[Array][163]&lt;[DirectionsWaypoint][193]>** An ordered array of [`DirectionsWaypoint`][127] objects, between 2 and 25 (inclusive).
-  - `config.alternatives` **[boolean][161]** Whether to try to return alternative routes. (optional, default `false`)
+  - `config.alternatives` **[boolean][155]** Whether to try to return alternative routes. (optional, default `false`)
   - `config.annotations` **[Array][163]&lt;(`"duration"` \| `"distance"` \| `"speed"` \| `"congestion"`)>?** Specify additional metadata that should be returned.
-  - `config.bannerInstructions` **[boolean][161]** Should be used in conjunction with `steps`. (optional, default `false`)
-  - `config.continueStraight` **[boolean][161]?** Sets the allowed direction of travel when departing intermediate waypoints.
+  - `config.bannerInstructions` **[boolean][155]** Should be used in conjunction with `steps`. (optional, default `false`)
+  - `config.continueStraight` **[boolean][155]?** Sets the allowed direction of travel when departing intermediate waypoints.
   - `config.exclude` **[string][154]?** Exclude certain road types from routing. See HTTP service documentation for options.
   - `config.geometries` **(`"geojson"` \| `"polyline"` \| `"polyline6"`)** Format of the returned geometry. (optional, default `"polyline"`)
   - `config.language` **[string][154]** Language of returned turn-by-turn text instructions.
       See options listed in [the HTTP service documentation][194]. (optional, default `"en"`)
   - `config.overview` **(`"simplified"` \| `"full"` \| `"false"`)** Type of returned overview geometry. (optional, default `"simplified"`)
-  - `config.roundaboutExits` **[boolean][161]** Emit instructions at roundabout exits. (optional, default `false`)
-  - `config.steps` **[boolean][161]** Whether to return steps and turn-by-turn instructions. (optional, default `false`)
-  - `config.voiceInstructions` **[boolean][161]** Whether or not to return SSML marked-up text for voice guidance along the route. (optional, default `false`)
+  - `config.roundaboutExits` **[boolean][155]** Emit instructions at roundabout exits. (optional, default `false`)
+  - `config.steps` **[boolean][155]** Whether to return steps and turn-by-turn instructions. (optional, default `false`)
+  - `config.voiceInstructions` **[boolean][155]** Whether or not to return SSML marked-up text for voice guidance along the route. (optional, default `false`)
   - `config.voiceUnits` **(`"imperial"` \| `"metric"`)** Which type of units to return in the text for voice instructions. (optional, default `"imperial"`)
 
 #### Examples
@@ -1218,8 +1222,8 @@ Snap recorded location traces to roads and paths.
   - `config.language` **[string][154]** Language of returned turn-by-turn text instructions.
       See [supported languages][194]. (optional, default `"en"`)
   - `config.overview` **(`"simplified"` \| `"full"` \| `"false"`)** Type of returned overview geometry. (optional, default `"simplified"`)
-  - `config.steps` **[boolean][161]** Whether to return steps and turn-by-turn instructions. (optional, default `false`)
-  - `config.tidy` **[boolean][161]** Whether or not to transparently remove clusters and re-sample traces for improved map matching results. (optional, default `false`)
+  - `config.steps` **[boolean][155]** Whether to return steps and turn-by-turn instructions. (optional, default `false`)
+  - `config.tidy` **[boolean][155]** Whether or not to transparently remove clusters and re-sample traces for improved map matching results. (optional, default `false`)
 
 #### Examples
 
@@ -1278,8 +1282,8 @@ Get a duration and/or distance matrix showing travel times and distances between
 - `config` **[Object][153]** 
   - `config.points` **[Array][163]&lt;[MatrixPoint][198]>** An ordered array of [`MatrixPoint`][131]s, between 2 and 100 (inclusive).
   - `config.profile` **(`"driving-traffic"` \| `"driving"` \| `"walking"` \| `"cycling"`)** A Mapbox Directions routing profile ID. (optional, default `driving`)
-  - `config.sources` **(`"all"` \| [Array][163]&lt;[number][157]>)?** Use coordinates with given index as sources.
-  - `config.destinations` **(`"all"` \| [Array][163]&lt;[number][157]>)?** Use coordinates with given index as destinations.
+  - `config.sources` **(`"all"` \| [Array][163]&lt;[number][158]>)?** Use coordinates with given index as sources.
+  - `config.destinations` **(`"all"` \| [Array][163]&lt;[number][158]>)?** Use coordinates with given index as destinations.
   - `config.annotations` **[Array][163]&lt;(`"distance"` \| `"duration"`)>?** Used to specify resulting matrices.
 
 #### Examples
@@ -1337,9 +1341,9 @@ to understand all of the available options.
   - `config.language` **[string][154]** Language of returned turn-by-turn text instructions.
       See options listed in [the HTTP service documentation][194]. (optional, default `"en"`)
   - `config.overview` **(`"simplified"` \| `"full"` \| `"false"`)** Type of returned overview geometry. (optional, default `"simplified"`)
-  - `config.roundtrip` **[boolean][161]** Specifies whether the trip should complete by returning to the first location. (optional, default `true`)
+  - `config.roundtrip` **[boolean][155]** Specifies whether the trip should complete by returning to the first location. (optional, default `true`)
   - `config.source` **(`"any"` \| `"first"`)** To begin the route, start either from the first coordinate or let the Optimization API choose. (optional, default `"any"`)
-  - `config.steps` **[boolean][161]** Whether to return steps and turn-by-turn instructions. (optional, default `false`)
+  - `config.steps` **[boolean][155]** Whether to return steps and turn-by-turn instructions. (optional, default `false`)
 
 Returns **MapiRequest** 
 
@@ -1528,10 +1532,10 @@ Type: [Object][153]
 
 - `coordinates` **[Coordinates][183]** 
 - `approach` **(`"unrestricted"` \| `"curb"`)?** Used to indicate how requested routes consider from which side of the road to approach the waypoint.
-- `bearing` **\[[number][157], [number][157]]?** Used to filter the road segment the waypoint will be placed on by direction and dictates the angle of approach.
+- `bearing` **\[[number][158], [number][158]]?** Used to filter the road segment the waypoint will be placed on by direction and dictates the angle of approach.
     This option should always be used in conjunction with a `radius`. The first value is an angle clockwise from true north between 0 and 360,
     and the second is the range of degrees the angle can deviate by.
-- `radius` **([number][157] \| `"unlimited"`)?** Maximum distance in meters that the coordinate is allowed to move when snapped to a nearby road segment.
+- `radius` **([number][158] \| `"unlimited"`)?** Maximum distance in meters that the coordinate is allowed to move when snapped to a nearby road segment.
 - `waypointName` **[string][154]?** Custom name for the waypoint used for the arrival instruction in banners and voice instructions.
 
 ### MapMatchingPoint
@@ -1542,10 +1546,10 @@ Type: [Object][153]
 
 - `coordinates` **[Coordinates][183]** 
 - `approach` **(`"unrestricted"` \| `"curb"`)?** Used to indicate how requested routes consider from which side of the road to approach a waypoint.
-- `radius` **[number][157]?** A number in meters indicating the assumed precision of the used tracking device.
-- `isWaypoint` **[boolean][161]?** Whether this coordinate is waypoint or not. The first and last coordinates will always be waypoints.
+- `radius` **[number][158]?** A number in meters indicating the assumed precision of the used tracking device.
+- `isWaypoint` **[boolean][155]?** Whether this coordinate is waypoint or not. The first and last coordinates will always be waypoints.
 - `waypointName` **[string][154]?** Custom name for the waypoint used for the arrival instruction in banners and voice instructions. Will be ignored unless `isWaypoint` is `true`.
-- `timestamp` **(tring | [number][157] \| [Date][158])?** Datetime corresponding to the coordinate.
+- `timestamp` **(tring | [number][158] \| [Date][159])?** Datetime corresponding to the coordinate.
 
 ### MatrixPoint
 
@@ -1564,10 +1568,10 @@ Type: [Object][153]
 
 - `coordinates` **[Coordinates][183]** 
 - `approach` **(`"unrestricted"` \| `"curb"`)?** Used to indicate how requested routes consider from which side of the road to approach the waypoint.
-- `bearing` **\[[number][157], [number][157]]?** Used to filter the road segment the waypoint will be placed on by direction and dictates the angle of approach.
+- `bearing` **\[[number][158], [number][158]]?** Used to filter the road segment the waypoint will be placed on by direction and dictates the angle of approach.
     This option should always be used in conjunction with a `radius`. The first value is an angle clockwise from true north between 0 and 360,
     and the second is the range of degrees the angle can deviate by.
-- `radius` **([number][157] \| `"unlimited"`)?** Maximum distance in meters that the coordinate is allowed to move when snapped to a nearby road segment.
+- `radius` **([number][158] \| `"unlimited"`)?** Maximum distance in meters that the coordinate is allowed to move when snapped to a nearby road segment.
 
 ### SimpleMarkerOverlay
 
@@ -1578,7 +1582,7 @@ Type: [Object][153]
 #### Properties
 
 - `marker` **[Object][153]** 
-  - `marker.coordinates` **\[[number][157], [number][157]]** `[longitude, latitude]`
+  - `marker.coordinates` **\[[number][158], [number][158]]** `[longitude, latitude]`
   - `marker.size` **(`"large"` \| `"small"`)?** 
   - `marker.label` **[string][154]?** Marker symbol. Options are an alphanumeric label `a`
       through `z`, `0` through `99`, or a valid [Maki][210]
@@ -1594,7 +1598,7 @@ Type: [Object][153]
 #### Properties
 
 - `marker` **[Object][153]** 
-  - `marker.coordinates` **\[[number][157], [number][157]]** `[longitude, latitude]`
+  - `marker.coordinates` **\[[number][158], [number][158]]** `[longitude, latitude]`
   - `marker.url` **[string][154]** 
 
 ### PathOverlay
@@ -1608,11 +1612,11 @@ Type: [Object][153]
 - `path` **[Object][153]** 
   - `path.coordinates` **[Array][163]&lt;[Coordinates][183]>** An array of coordinates
       describing the path.
-  - `path.strokeWidth` **[number][157]?** 
+  - `path.strokeWidth` **[number][158]?** 
   - `path.strokeColor` **[string][154]?** 
-  - `path.strokeOpacity` **[number][157]?** Must be paired with strokeColor.
+  - `path.strokeOpacity` **[number][158]?** Must be paired with strokeColor.
   - `path.fillColor` **[string][154]?** Must be paired with strokeColor.
-  - `path.fillOpacity` **[number][157]?** Must be paired with fillColor.
+  - `path.fillOpacity` **[number][158]?** Must be paired with fillColor.
 
 ### GeoJsonOverlay
 
@@ -1636,13 +1640,13 @@ Type: ([Blob][211] \| [ArrayBuffer][212] \| [string][154] | ReadableStream)
 
 `[longitude, latitude]`
 
-Type: [Array][163]&lt;[number][157]>
+Type: [Array][163]&lt;[number][158]>
 
 ### BoundingBox
 
 `[minLongitude, minLatitude, maxLongitude, maxLatitude]`
 
-Type: [Array][163]&lt;[number][157]>
+Type: [Array][163]&lt;[number][158]>
 
 ## Isochrone
 
@@ -1660,11 +1664,11 @@ Given a location and a routing profile, retrieve up to four isochrone contours
 - `config` **[Object][153]** 
   - `config.profile` **(`"driving"` \| `"walking"` \| `"cycling"`)**     A Mapbox Directions routing profile ID. (optional, default `"driving"`)
   - `config.coordinates` **[Coordinates][183]** A  {longitude,latitude} coordinate pair around which to center the isochrone lines.
-  - `config.minutes` **[Array][163]&lt;[number][157]>** The times in minutes to use for each isochrone contour. You can specify up to four contours. Times must be in increasing order. The maximum time that can be specified is 60 minutes.
+  - `config.minutes` **[Array][163]&lt;[number][158]>** The times in minutes to use for each isochrone contour. You can specify up to four contours. Times must be in increasing order. The maximum time that can be specified is 60 minutes.
   - `config.colors` **[Array][163]&lt;[string][154]>?** The colors to use for each isochrone contour, specified as hex values without a leading # (for example, ff0000 for red). If this parameter is used, there must be the same number of colors as there are entries in contours_minutes. If no colors are specified, the Isochrone API will assign a default rainbow color scheme to the output.
-  - `config.polygons` **[boolean][161]?** Specify whether to return the contours as GeoJSON polygons (true) or linestrings (false, default). When polygons=true, any contour that forms a ring is returned as a polygon.
-  - `config.denoise` **[number][157]?** A floating point value from 0.0 to 1.0 that can be used to remove smaller contours. The default is 1.0. A value of 1.0 will only return the largest contour for a given time value. A value of 0.5 drops any contours that are less than half the area of the largest contour in the set of contours for that same time value.
-  - `config.generalize` **[number][157]?** A positive floating point value in meters used as the tolerance for Douglas-Peucker generalization. There is no upper bound. If no value is specified in the request, the Isochrone API will choose the most optimized generalization to use for the request. Note that the generalization of contours can lead to self-intersections, as well as intersections of adjacent contours.
+  - `config.polygons` **[boolean][155]?** Specify whether to return the contours as GeoJSON polygons (true) or linestrings (false, default). When polygons=true, any contour that forms a ring is returned as a polygon.
+  - `config.denoise` **[number][158]?** A floating point value from 0.0 to 1.0 that can be used to remove smaller contours. The default is 1.0. A value of 1.0 will only return the largest contour for a given time value. A value of 0.5 drops any contours that are less than half the area of the largest contour in the set of contours for that same time value.
+  - `config.generalize` **[number][158]?** A positive floating point value in meters used as the tolerance for Douglas-Peucker generalization. There is no upper bound. If no value is specified in the request, the Isochrone API will choose the most optimized generalization to use for the request. Note that the generalization of contours can lead to self-intersections, as well as intersections of adjacent contours.
 
 Returns **MapiRequest** 
 
@@ -1674,8 +1678,8 @@ Type: [Object][153]
 
 ### Properties
 
-- `pickup` **[number][157]** Array index of the item containing coordinates for the pick-up location in the OptimizationWaypoint array.
-- `dropoff` **[number][157]** Array index of the item containing coordinates for the drop-off location in the OptimizationWaypoint array.
+- `pickup` **[number][158]** Array index of the item containing coordinates for the pick-up location in the OptimizationWaypoint array.
+- `dropoff` **[number][158]** Array index of the item containing coordinates for the drop-off location in the OptimizationWaypoint array.
 
 [1]: #styles
 
@@ -1985,19 +1989,19 @@ Type: [Object][153]
 
 [154]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[155]: https://docs.mapbox.com/api/maps/#create-a-style
+[155]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[156]: https://docs.mapbox.com/api/maps/#update-a-style
+[156]: https://docs.mapbox.com/api/maps/#create-a-style
 
-[157]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[157]: https://docs.mapbox.com/api/maps/#update-a-style
 
-[158]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date
+[158]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[159]: #uploadablefile
+[159]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date
 
-[160]: https://docs.mapbox.com/api/maps/#retrieve-a-sprite-image-or-json
+[160]: #uploadablefile
 
-[161]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[161]: https://docs.mapbox.com/api/maps/#retrieve-a-sprite-image-or-json
 
 [162]: https://docs.mapbox.com/api/maps/#retrieve-font-glyph-ranges
 
