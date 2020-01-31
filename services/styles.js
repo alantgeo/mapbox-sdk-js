@@ -298,6 +298,7 @@ Styles.deleteStyleIcon = function(config) {
  *     const sprite = response.body;
  *   });
  *
+ * @example
  * stylesClient.getStyleSprite({
  *   format: 'png',
  *   styleId: 'foo',
