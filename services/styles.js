@@ -345,10 +345,9 @@ Styles.getStyleSprite = function(config) {
         path:
           '/styles/v1/:ownerId/:styleId' +
           (config.draft ? '/draft' : '') +
-          '/:fileName',
-        params: xtend(pick(config, ['ownerId', 'styleId']), {
-          fileName: fileName
-        })
+          +'/' +
+          fileName,
+        params: pick(config, ['ownerId', 'styleId'])
       },
       format === 'png' ? { encoding: 'binary' } : {}
     )
